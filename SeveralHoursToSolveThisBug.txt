@@ -1,0 +1,14 @@
+    //!!!!!!  READ, VERY IMPORTANT, IT TAKES ME SEVERAL HOURS TO DETECT THE NEXT BUG
+    /* 
+    The attribute ID of INPUT element and the attribute HTMLFOR of LABEL has to be the same. 
+    But its also ESSENTIAL that they must be UNIQUE through all the program.
+    For instance:
+    First question -> Answers ["Madrid","Barcelona","Sevilla","Valencia"]
+    Second question -> Answers ["Zaragoza","Teruel","Vigo","Madrid"]
+    At first, the value that i give to the id and htmlfor, was the answer itself (i.e. "Madrid" in that case).
+    So in that case, if the same input appears on different questions, when i click on the label, its going to 
+    trigger the first input with the id="Madrid" because the label has htmlFor="Madrid".
+    But, this way i never could trigger the second input, because the htmlFor is linked to the first input with the same id.
+    For that reason, i chose to concatenate the value with the id of the question, 
+    to make the id and htmlFor of each answer UNIQUE 
+    */
