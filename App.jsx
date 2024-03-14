@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 import he from 'he'
 import Start from './components/Start'
 import Question from './components/Question'
+import topImage from './images/top.png';
+import bottomImage from './images/bottom.png'
 
 export default function App() {
     // 0 = not started (false) // 1 = on course (true) // 2 = over (true)
@@ -13,20 +15,15 @@ export default function App() {
         width: phaseGame ? "130px" : "170px"
     }
     
-    function fisherYatesShuffle(array) {
-        let currentIndex = array.length, randomIndex
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex)
-            currentIndex--
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
-        }
-        return array;
+    function shuffleArray(array) {
+        return array.sort(() => Math.random() - 0.5);
     }
     
     function completeQuestions (questionsArray) {
         const finalQuestions = questionsArray.map(question => {
             const allAnswers = [...question.incorrect_answers, question.correct_answer]
-            const allAnswersOrdered = fisherYatesShuffle(allAnswers).map(item => he.decode(item))
+            const resultado = shuffleArray(allAnswers)
+            const allAnswersOrdered = resultado.map(item => he.decode(item))
             return (
                 {
                     ...question,
@@ -105,12 +102,12 @@ export default function App() {
     })
     return (
         <div className="app-container">
-            <img src="./images/top.png" className="image-top" style={stylesImgs}/>        
+            <img src={topImage} className="image-top" style={stylesImgs}/>        
             <div className={!phaseGame ? '' : 'questions-container'}>
                 {!phaseGame ? <Start startGame={setPhaseGame}/> : questionElements}
             </div>
             {determineBottomArea()}
-            <img src="./images/bottom.png" className="image-bottom" style={stylesImgs}/>     
+            <img src={bottomImage} className="image-bottom" style={stylesImgs}/>     
         </div>
             
     )
